@@ -1,0 +1,15 @@
+{
+    "files.associations": {
+        "iostream": "cpp",
+        "ostream": "cpp",
+        "*.inc": "cpp",
+        "iosfwd": "cpp"
+    },
+    "makefile.launchConfigurations": [
+        {
+            "cwd": "/home/giorno/Labs3/c++/lab5_cpp",
+            "binaryPath": "/home/giorno/Labs3/c++/lab5_cpp/main.out",
+            "binaryArgs": []
+        }
+    ]
+}
