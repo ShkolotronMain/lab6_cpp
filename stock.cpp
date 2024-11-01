@@ -6,42 +6,79 @@ using namespace nlohmann;
 Stock::Stock()
 {
     cnt = 0;
+    crint = 0;
     mas = new Course[0];
+    crmas = new Crypto[0];
 }
 
 // Деструктор
 Stock::~Stock()
 {
     delete[] mas;
+    delete[] crmas;
     cnt = 0;
+    crint = 0;
 }
 
-bool Stock::pop(int index)
+bool Stock::pop(int index, bool val)
 {
-    if (index>=0 && index < cnt)
+    // добавление обычной валюты
+    if (val = 0)
     {
-        int old_cnt = cnt;
-        cnt--;
-        Course* new_mas = new Course[cnt];
-        
-        for (int i=0, j=0; i<old_cnt; i++)
-            if (i != index)
-            {
-                new_mas[j] = mas[i];
-                j++;
-            }
+        if (index>=0 && index < cnt)
+        {
+            int old_cnt = cnt;
+            cnt--;
+            Course* new_mas = new Course[cnt];
+            
+            for (int i=0, j=0; i<old_cnt; i++)
+                if (i != index)
+                {
+                    new_mas[j] = mas[i];
+                    j++;
+                }
 
-        Course* old_mas = mas;
-        mas = new_mas;
-        delete[] old_mas;
+            Course* old_mas = mas;
+            mas = new_mas;
+            delete[] old_mas;
 
-        cout << "Элемент удалён" << endl;
-        return 1;
+            cout << "Элемент удалён" << endl;
+            return 1;
+        }
+        else
+        {
+            cerr << "Элемент с заданным индексом не существует" << endl;
+            return 0;
+        }
     }
+    // Добавление криптовалюты
     else
     {
-        cerr << "Элемент с заданным индексом не существует" << endl;
-        return 0;
+        if (index>=0 && index < crint)
+        {
+            int old_crint = crint;
+            crint--;
+            Crypto* new_crmas = new Crypto[crint];
+            
+            for (int i=0, j=0; i<old_crint; i++)
+                if (i != index)
+                {
+                    new_crmas[j] = crmas[i];
+                    j++;
+                }
+
+            Crypto* old_crmas = crmas;
+            crmas = new_crmas;
+            delete[] old_crmas;
+
+            cout << "Элемент удалён" << endl;
+            return 1;
+        }
+        else
+        {
+            cerr << "Элемент с заданным индексом не существует" << endl;
+            return 0;
+        }
     }
 }
 
@@ -49,6 +86,8 @@ void Stock::print_all()
 {
     for (int i=0; i<cnt; i++)
         cout << mas[i];
+    for (int i=0; i<crint; i++)
+        cout << crmas[i];
 }
 
 double Stock::diff(Course left, Course right)
@@ -75,6 +114,11 @@ bool Stock::print_exp()
         for (int i=0; i<cnt; i++)
             if (diff(usd, mas[i]) < 0)
                 cout << mas[i] << endl;
+        
+        for (int i=0; i<crint; i++)
+            if (diff(usd, crmas[i]) < 0)
+                cout << crmas[i] << endl;
+
         return 1;
     }
     else
@@ -132,16 +176,36 @@ void Stock::operator+=(Course _course)
     mas[cnt-1] = _course;
 }
 
+void Stock::operator+=(Crypto _crypto)
+{
+    crint++;
+    Crypto* new_crmas = new Crypto[crint];
+    for (int i=0; i<crint-1; i++)
+        new_crmas[i] = crmas[i];
+    Crypto* old_crmas = crmas;
+    crmas = new_crmas;
+    delete[] old_crmas;
+
+    crmas[crint-1] = _crypto;
+}
+
 ofstream& operator<<(ofstream& out, const Stock& src)
 {
     json file;
 
     file["count"] = src.cnt;
+    file["crint"] = src.crint;
 
     for (int i=0; i<src.cnt; i++)
     {
         json value = src.mas[i].get_object();
         file["values"].push_back(value);
+    }
+
+    for (int i=0; i<src.crint; i++)
+    {
+        json value = src.crmas[i].get_object();
+        file["crvalues"].push_back(value);
     }
 
     out << file.dump(4);
@@ -159,6 +223,13 @@ ifstream& operator>>(ifstream& in, Stock& src)
         json value = file["values"][i];
         Course nc = Course(value);
         src+=nc;
+    }
+
+    for (int i=0; i<file["crint"]; i++)
+    {
+        json value = file["crvalues"][i];
+        Crypto nc = Crypto(value);
+        src += nc;
     }
     return in;
 }

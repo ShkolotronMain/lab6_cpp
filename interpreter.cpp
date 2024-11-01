@@ -115,18 +115,57 @@ void Interpreter::print_help()
 
 void Interpreter::add()
 {
-    Course nc = Course();
-    cin >> nc;
-    *(src)+=nc;
+    int inp = 1;
+    cout << "Введите тип валюты (1 - обычная, 2 - крипто):" << endl;
+    cin >> inp;
+    if (inp == 1)
+    {
+        Course nc = Course();
+        cin >> nc;
+        *(src)+=nc;
+        last = 1;
+    }
+    else if (inp == 2)
+    {
+        Crypto nc = Crypto();
+        cin >> nc;
+        *(src) += nc;
+        last = 1;
+    }
+    else
+    {
+        last = 0;
+        cerr << "Неверно введено число" << endl;
+    }
     cout << endl;
 }
 
 void Interpreter::pop()
 {
-    int c;
-    cout << "Введите индекс удаляемого элемента: ";
-    cin >> c;
-    last = src->pop(c);
+    int inp = 1;
+    cout << "Введите тип валюты (1 - обычная, 2 - крипто):" << endl;
+    cin >> inp;
+    if (inp == 1)
+    {
+        last = 1;
+        int c;
+        cout << "Введите индекс удаляемого элемента: ";
+        cin >> c;
+        last = src->pop(c, 0);
+    }
+    else if (inp == 2)
+    {
+        last = 1;
+        int c;
+        cout << "Введите индекс удаляемого элемента: ";
+        cin >> c;
+        last = src->pop(c, 1);
+    }
+    else
+    {
+        last = 0;
+        cerr << "Неверно введено число" << endl;
+    }
 }
 
 void Interpreter::read_json()

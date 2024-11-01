@@ -11,13 +11,13 @@ using namespace nlohmann;
 // Основной класс
 class Course
 {
-private:
+protected:
     string currency;
     string state;
     string code;
     string subunit;
     int fraction;
-    double rate;
+    long double rate;
 
 public:
     Course();

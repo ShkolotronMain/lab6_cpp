@@ -8,7 +8,6 @@ Crypto::Crypto()
     subunit = "";
     fraction = 0;
     rate = 0;
-    system = "";
     language = "";
     year = 0;
 }
@@ -21,22 +20,19 @@ Crypto::Crypto(json val)
     subunit = val["subunit"];
     fraction = val["fraction"];
     rate = val["rate"];
-    system = val["system"];
     language = val["language"];
-    rate = val["rate"];
+    year = val["year"];
 }
 
 json Crypto::get_object()
 {
     json value;
-    value["type"] = "crypto";
     value["currency"] = currency;
     value["state"] = state;
     value["code"] = code;
     value["subunit"] = subunit;
     value["fraction"] = fraction;
     value["rate"] = rate;
-    value["system"] = system;
     value["language"] = language;
     value["year"] = year;
     return value;
@@ -51,7 +47,6 @@ ostream& operator<<(ostream& out, const Crypto& cl)
     out << cl.state << endl;
     out << cl.code << endl;
     out << "1 " + cl.code + " = " << cl.rate << " RUB" << endl;
-    out << cl.system << " system" << endl;
     out << "Started in " << cl.year << endl;
     out << "Written in " << cl.language << endl;
     out << "===================" << endl;
@@ -66,7 +61,7 @@ istream &operator>>(istream& in, Crypto& c)
     getline(in, trash);
     cout << "Введите название валюты:" << endl;
     getline(in, c.currency);
-    cout << "Введите государство:" << endl;
+    cout << "Введите экосистему криптовалют" << endl;
     getline(in, c.state);
     cout << "Введите код валюты:" << endl;
     getline(in, c.code);
@@ -76,8 +71,7 @@ istream &operator>>(istream& in, Crypto& c)
     in >> c.fraction;
     cout << "Введите курс валюты к российскому рублю:" << endl;
     in >> c.rate;
-    cout << "Введите экосистему криптовалют" << endl;
-    getline(in, c.system);
+    getline(in, trash);
     cout << "Введите язык реализации криптовалюты" << endl;
     getline(in, c.language);
     cout << "Введите год запуска криптовалюты" << endl;

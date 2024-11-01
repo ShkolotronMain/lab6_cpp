@@ -1,7 +1,7 @@
 #include "course.hpp"
 
 // Класс-наследник
-class Crypto : Course
+class Crypto : public Course
 {
     private:
         // система криптовалют

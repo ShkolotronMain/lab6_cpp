@@ -8,6 +8,7 @@
                 "-fdiagnostics-color=always",
                 "-g",
                 "interpreter.cpp",
+                "crypto.cpp",
                 "course.cpp",
                 "stock.cpp",
                 "${file}",
