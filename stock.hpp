@@ -1,7 +1,6 @@
 #ifndef STOCK_H
 #define STOCK_H
 
-#include "course.hpp"
 #include "crypto.hpp"
 
 // Класс-контейнер

@@ -1,7 +1,6 @@
 #ifndef COURSE_H    
 #define COURSE_H
 
-#include <fstream>
 #include <iostream>
 #include "libraries/json.hpp"
 

@@ -1,4 +1,5 @@
 #include "stock.hpp"
+#include <fstream>
 
 using namespace nlohmann;
 
@@ -23,7 +24,7 @@ Stock::~Stock()
 bool Stock::pop(int index, bool val)
 {
     // добавление обычной валюты
-    if (val = 0)
+    if (val == 0)
     {
         if (index>=0 && index < cnt)
         {
@@ -132,6 +133,7 @@ bool Stock::print_exp()
 bool Stock::read_from_json(string path)
 {
     ifstream in(path);
+    
     if (in.is_open())
     {
         in >> *this;
