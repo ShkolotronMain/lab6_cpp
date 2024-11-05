@@ -4,8 +4,6 @@
 class Crypto : public Course
 {
     private:
-        // система криптовалют
-        string system;
         // язык, на котором написана обработка
         string language;
         // год запуска

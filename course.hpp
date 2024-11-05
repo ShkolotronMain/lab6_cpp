@@ -27,7 +27,7 @@ public:
     // Геттер поля code
     string get_code();
     // Геттер поля rate
-    double get_rate();
+    long double get_rate();
 
     // Консольный вывод
     friend ostream &operator<<(ostream&, const Course&);

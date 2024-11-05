@@ -16,7 +16,7 @@ class Stock
         int crint;
 
         // Разница двух элементов на рынке
-        double diff(Course, Course);
+        long double diff(Course, Course);
 
     public:
         Stock();

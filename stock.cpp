@@ -91,7 +91,7 @@ void Stock::print_all()
         cout << crmas[i];
 }
 
-double Stock::diff(Course left, Course right)
+long double Stock::diff(Course left, Course right)
 {
     return (left.get_rate() - right.get_rate());
 }

@@ -37,7 +37,7 @@ string Course::get_code()
     return code;
 }
 
-double Course::get_rate()
+long double Course::get_rate()
 {
     return rate;
 }
